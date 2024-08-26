@@ -45,10 +45,43 @@ function checkWin() {
         if(v0 != "" && v0 === v1 && v0 === v2){
             isGameOver = true;
             document.querySelector("#results").innerHTML = turn + " win ";
-            document.querySelector("play-again").style.display = "inline";
+            document.querySelector("#play-again").style.display = "inline"
+
+            for(j = 0; j<3; j++){
+                boxes[winConditions[i][j]].style.backGroundColor = "#00ffff"
+                boxes[winConditions[i][j]].style.backGroundColor = "#7cfc00"
+            }
         }
     }
 }
 
 function checkDraw() {
+    if(!isGameOver){
+        let isDraw = true;
+        boxes.forEach(e =>{
+            if(e.innerHTML === "") isDraw = false
+        })
+
+        if(isDraw){
+            isGameOver = true;
+            document.querySelector("#results").innerHTML = turn + " Draw";
+            document.querySelector("#play-again").style.display = "inline"
+
+        }
+    }
 }
+
+
+document.querySelector("#play-again").addEventListener("click", ()=>{
+    isGameOver = false;
+    turn = "X";
+    document.querySelector(".bg").style.left = "0";
+    document.querySelector("#results").innerHTML = "";
+    document.querySelector("#play-again").style.display = "none";
+
+    boxes.forEach(e=>{
+        e.innerHTML = "";
+        e.style.removeProperty("background-color");
+        e.style.color = "#fff"
+    })
+})
